@@ -3,24 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Barbearia Anderson | Black & White</title>
+    <title>Anderson Barber | Premium Booking</title>
     <style>
         :root {
-            --bg: #ffffff;
-            --text: #000000;
-            --gray-light: #f2f2f2;
-            --gray-medium: #888888;
-            --border: #dddddd;
+            --pure-black: #000000;
+            --pure-white: #ffffff;
+            --gray-100: #f8f9fa;
+            --gray-300: #dee2e6;
+            --gray-800: #343a40;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent; 
+            margin: 0; padding: 0;
+        }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--pure-white);
+            color: var(--pure-black);
+            line-height: 1.6;
             display: flex;
             justify-content: center;
             min-height: 100vh;
@@ -28,168 +32,199 @@
 
         .container {
             width: 100%;
-            max-width: 450px;
-            text-align: center;
+            max-width: 420px;
+            padding: 40px 24px;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Emoji de Tesoura Transparente no Fundo */
-        .container::before {
-            content: "✂️";
+        /* Tesoura Background Profissional */
+        .bg-icon {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 250px;
-            opacity: 0.03; /* Transparência profunda */
+            font-size: 180px;
+            opacity: 0.04;
             pointer-events: none;
             z-index: -1;
+            user-select: none;
         }
 
-        .step { display: none; animation: fadeIn 0.3s ease; }
-        .step.active { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        h2 { 
-            font-weight: 800; 
-            text-transform: uppercase; 
-            letter-spacing: 4px; 
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--text);
-            display: inline-block;
-            padding-bottom: 5px;
+        .step { display: none; width: 100%; }
+        .step.active { 
+            display: flex; 
+            flex-direction: column;
+            animation: slideUp 0.4s ease-out; 
         }
 
-        /* Avatar */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tipografia */
+        h1 { font-size: 12px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 8px; color: var(--gray-800); }
+        h2 { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-bottom: 32px; }
+
+        /* Perfil e Foto */
+        .avatar-container {
+            margin-bottom: 32px;
+            align-self: center;
+        }
         #preview {
-            width: 80px;
-            height: 80px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             object-fit: cover;
-            border: 1px solid var(--text);
-            margin-bottom: 15px;
+            border: 1px solid var(--pure-black);
+            padding: 4px;
+            margin-bottom: 12px;
             display: none;
         }
-
-        .custom-file-upload {
-            display: block;
-            margin: 10px auto 30px;
-            font-size: 12px;
-            text-decoration: underline;
+        .upload-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 1px solid var(--pure-black);
+            padding-bottom: 2px;
             cursor: pointer;
-            color: var(--gray-medium);
+            text-transform: uppercase;
         }
 
-        /* Inputs */
+        /* Formulários */
         input, select, textarea {
             width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            background: var(--bg);
-            border: 1px solid var(--text);
-            border-radius: 0; /* Estilo quadrado minimalista */
+            padding: 16px 0;
+            margin-bottom: 24px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--gray-300);
             font-size: 16px;
-            color: var(--text);
+            border-radius: 0;
+            transition: var(--transition);
         }
+        input:focus { border-bottom-color: var(--pure-black); outline: none; }
 
-        /* Grade de Horários P&B */
+        /* Grade de Horários Profissional */
         .time-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin: 20px 0;
+            gap: 12px;
+            margin-bottom: 32px;
         }
         .time-slot {
-            border: 1px solid var(--text);
-            padding: 15px 0;
-            cursor: pointer;
+            padding: 14px 0;
+            border: 1px solid var(--gray-300);
+            text-align: center;
             font-size: 14px;
-            font-weight: bold;
-            transition: 0.2s;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
         }
+        .time-slot:hover { border-color: var(--pure-black); }
         .time-slot.selected {
-            background: var(--text);
-            color: var(--bg);
+            background: var(--pure-black);
+            color: var(--pure-white);
+            border-color: var(--pure-black);
         }
 
         /* Botões */
         button {
-            background-color: var(--text);
-            color: var(--bg);
-            border: 1px solid var(--text);
+            background: var(--pure-black);
+            color: var(--pure-white);
+            border: none;
             padding: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 15px;
-            font-size: 14px;
+            font-size: 13px;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 8px;
+        }
+        button:active { transform: scale(0.98); opacity: 0.9; }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--pure-black);
+            border: 1px solid var(--pure-black);
+            margin-top: 12px;
         }
 
-        button:active { background-color: var(--gray-medium); border-color: var(--gray-medium); }
-
-        .btn-outline {
-            background: var(--bg);
-            color: var(--text);
-            margin-top: 10px;
-        }
-
-        .info-txt { font-size: 13px; color: var(--gray-medium); margin-top: 20px; }
+        .label-small { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--gray-800); margin-bottom: 4px; display: block; text-align: left; }
     </style>
 </head>
 <body>
 
+    <div class="bg-icon">✂️</div>
+
     <div class="container">
         
         <div id="step1" class="step active">
-            <h2>Anderson</h2>
-            <div class="profile-section">
-                <img id="preview" src="#" alt="Perfil">
-                <label class="custom-file-upload">
+            <h1>Premium Service</h1>
+            <h2>Bem-vindo</h2>
+            
+            <div class="avatar-container">
+                <img id="preview" src="#" alt="Profile">
+                <label class="upload-label">
                     <input type="file" id="foto" accept="image/*" style="display:none" onchange="loadPhoto(event)">
-                    ADICIONAR FOTO DA GALERIA
+                    Carregar Foto
                 </label>
             </div>
-            <input type="text" id="nome_user" placeholder="NOME DO CLIENTE">
-            <button onclick="saveUser()">CONTINUAR</button>
+
+            <span class="label-small">Nome Completo</span>
+            <input type="text" id="nome_user" placeholder="Ex: Rodrigo Oliveira">
+            <button onclick="saveUser()">Próximo</button>
         </div>
 
         <div id="step2" class="step">
-            <h2>SERVIÇOS</h2>
+            <h1>Serviços</h1>
+            <h2>O que faremos hoje?</h2>
+            
+            <span class="label-small">Selecione o procedimento</span>
             <select id="servico">
-                <option value="Corte (R$ 35,00)">CORTE - R$ 35,00</option>
-                <option value="Barba (R$ 25,00)">BARBA - R$ 25,00</option>
-                <option value="Combo (R$ 55,00)">CORTE + BARBA - R$ 55,00</option>
+                <option value="Corte de Cabelo">Corte de Cabelo — R$ 35</option>
+                <option value="Barba Design">Barba Design — R$ 25</option>
+                <option value="Combo Completo">Combo Completo — R$ 55</option>
             </select>
-            <p class="info-txt">Profissional: Anderson</p>
-            <button onclick="nextStep(3)">ESCOLHER HORÁRIO</button>
-            <button class="btn-outline" onclick="nextStep(1)">VOLTAR</button>
+
+            <span class="label-small" style="margin-top: 10px;">Barbeiro Selecionado</span>
+            <p style="font-weight: 700; margin-bottom: 40px;">Anderson Master</p>
+
+            <button onclick="nextStep(3)">Escolher Horário</button>
+            <button class="btn-secondary" onclick="nextStep(1)">Voltar</button>
         </div>
 
         <div id="step3" class="step">
-            <h2>HORÁRIOS</h2>
-            <div class="time-grid" id="grid">
-                <div class="time-slot" onclick="selectTime(this)">08:00</div>
+            <h1>Agenda</h1>
+            <h2>Horários disponíveis</h2>
+            
+            <div class="time-grid">
                 <div class="time-slot" onclick="selectTime(this)">09:00</div>
                 <div class="time-slot" onclick="selectTime(this)">10:00</div>
-                <div class="time-slot" onclick="selectTime(this)">13:00</div>
+                <div class="time-slot" onclick="selectTime(this)">11:00</div>
                 <div class="time-slot" onclick="selectTime(this)">14:00</div>
                 <div class="time-slot" onclick="selectTime(this)">15:00</div>
                 <div class="time-slot" onclick="selectTime(this)">16:00</div>
                 <div class="time-slot" onclick="selectTime(this)">17:00</div>
                 <div class="time-slot" onclick="selectTime(this)">18:00</div>
+                <div class="time-slot" onclick="selectTime(this)">19:00</div>
             </div>
-            <button onclick="nextStep(4)">CONFIRMAR</button>
-            <button class="btn-outline" onclick="nextStep(2)">VOLTAR</button>
+
+            <button onclick="nextStep(4)">Continuar</button>
+            <button class="btn-secondary" onclick="nextStep(2)">Voltar</button>
         </div>
 
         <div id="step4" class="step">
-            <h2>REVISÃO</h2>
-            <textarea id="obs" rows="3" placeholder="NOTAS ADICIONAIS..."></textarea>
-            <button onclick="sendWhatsApp()">FINALIZAR AGENDAMENTO</button>
-            <button class="btn-outline" onclick="nextStep(3)">VOLTAR</button>
+            <h1>Finalização</h1>
+            <h2>Algum detalhe?</h2>
+            
+            <textarea id="obs" rows="4" placeholder="Preferências, estilo de corte ou observações..."></textarea>
+            
+            <button onclick="sendWhatsApp()">Finalizar Agendamento</button>
+            <button class="btn-secondary" onclick="nextStep(3)">Revisar Horário</button>
         </div>
 
     </div>
@@ -200,18 +235,19 @@
         function nextStep(n) {
             document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
             document.getElementById('step' + n).classList.add('active');
-            window.scrollTo(0,0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function loadPhoto(event) {
             const output = document.getElementById('preview');
             output.src = URL.createObjectURL(event.target.files[0]);
-            output.style.display = 'inline-block';
+            output.style.display = 'block';
+            document.querySelector('.upload-label').innerText = 'Trocar Foto';
         }
 
         function saveUser() {
             const nome = document.getElementById('nome_user').value;
-            if(nome === "") return alert("POR FAVOR, INSIRA SEU NOME");
+            if(!nome) return alert("Por favor, informe seu nome.");
             nextStep(2);
         }
 
@@ -222,19 +258,18 @@
         }
 
         function sendWhatsApp() {
-            if(!selectedTime) return alert("SELECIONE UM HORÁRIO");
+            if(!selectedTime) return alert("Selecione um horário para continuar.");
 
             const nome = document.getElementById('nome_user').value;
             const servico = document.getElementById('servico').value;
             const obs = document.getElementById('obs').value;
             const numero = "553399506119";
 
-            const msg = `*AGENDAMENTO P&B*%0A` +
+            const msg = `*RESERVA PREMIUM - ANDERSON BARBER*%0A%0A` +
                         `*CLIENTE:* ${nome.toUpperCase()}%0A` +
-                        `*BARBEIRO:* ANDERSON%0A` +
                         `*SERVIÇO:* ${servico}%0A` +
                         `*HORÁRIO:* ${selectedTime}%0A` +
-                        `*OBS:* ${obs}`;
+                        `*OBS:* ${obs || 'Nenhuma'}`;
 
             window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${msg}`, '_blank');
         }
