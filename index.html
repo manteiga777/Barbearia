@@ -2,131 +2,115 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barbearia do Anderson | Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Barbearia do Anderson</title>
     <style>
+        /* Estilização focada em Mobile e Estilo Vintage Moderno */
         :root {
-            --primary: #d4af37;
-            --dark: #1a1a1a;
-            --dark-light: #2a2a2a;
-            --text-light: #f4f4f4;
-            --accent: #8b0000;
+            --gold: #d4af37;
+            --dark: #2c1e14;
+            --wood: #3d2b1f;
+            --cream: #f2e8cf;
         }
 
-        * { box-sizing: border-box; transition: all 0.3s ease; }
-
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
-                        url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1470') no-repeat center center fixed;
-            background-size: cover;
-            color: var(--text-light);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--dark);
+            background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            color: var(--cream);
             margin: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
         }
 
         .container {
-            width: 90%;
-            max-width: 400px;
-            background: rgba(26, 26, 26, 0.95);
-            padding: 40px;
-            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            background: var(--wood);
+            padding: 25px;
+            border: 3px solid var(--gold);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            backdrop-filter: blur(10px);
         }
 
         .step { display: none; }
-        .step.active { display: block; animation: fadeIn 0.5s ease; }
+        .step.active { display: block; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        h2 { color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
 
-        h2 { 
-            font-family: 'Playfair Display', serif;
-            color: var(--primary); 
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
-
-        .avatar-upload {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            overflow: hidden;
-            background: #444;
-        }
-
-        .avatar-upload img { width: 100%; height: 100%; object-fit: cover; }
-
+        /* Login e Inputs */
         input, select, textarea {
             width: 100%;
-            padding: 12px 15px;
+            padding: 15px;
             margin: 10px 0;
-            background: var(--dark-light);
-            border: 1px solid #444;
+            background: var(--cream);
+            border: none;
             border-radius: 8px;
-            color: white;
+            font-size: 16px; /* Evita zoom automático no iOS */
+        }
+
+        /* Foto de Perfil */
+        .profile-section { margin-bottom: 20px; }
+        #preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+            margin-bottom: 10px;
+            display: none;
+        }
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px dashed var(--gold);
+            border-radius: 8px;
+            cursor: pointer;
             font-size: 14px;
         }
 
-        input:focus { border-color: var(--primary); outline: none; background: #333; }
-
-        button {
-            background: var(--primary);
+        /* Grade de Horários (O diferencial que você pediu) */
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .time-slot {
+            background: #1a110a;
+            border: 1px solid var(--gold);
+            padding: 12px 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .time-slot.selected {
+            background: var(--gold);
             color: var(--dark);
+        }
+
+        /* Botões */
+        button {
+            background-color: #8b0000;
+            color: white;
             border: none;
-            padding: 14px;
+            padding: 18px;
+            font-weight: bold;
             border-radius: 8px;
-            font-weight: 700;
             cursor: pointer;
             width: 100%;
-            margin-top: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
-            filter: brightness(1.1);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .hero-img {
-            width: 100%;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-
-        .profile-info {
-            font-size: 0.8rem;
-            color: #aaa;
-            margin-bottom: 20px;
-        }
-
-        .footer-info {
             margin-top: 20px;
-            font-size: 0.85em;
-            color: #888;
-            padding: 15px;
-            border-top: 1px solid #333;
+            font-size: 16px;
+            text-transform: uppercase;
         }
+        button:active { transform: scale(0.98); }
+        .btn-back { background: #555; margin-top: 10px; padding: 12px; }
+
+        .price { color: var(--gold); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -135,126 +119,110 @@
         
         <div id="step1" class="step active">
             <h2>Bem-vindo</h2>
-            <p style="margin-bottom:20px; font-size: 0.9em;">Acesse sua conta para agendar</p>
-            <input type="text" placeholder="Usuário" id="user">
-            <input type="password" placeholder="Senha" id="pass">
-            <button onclick="login()">Entrar</button>
-            <p style="font-size: 12px; margin-top: 15px; color: #666;">Esqueceu a senha?</p>
+            <div class="profile-section">
+                <img id="preview" src="#" alt="Sua Foto">
+                <label class="custom-file-upload">
+                    <input type="file" id="foto" accept="image/*" style="display:none" onchange="loadPhoto(event)">
+                    📷 Escolher Foto da Galeria
+                </label>
+            </div>
+            <input type="text" id="nome_user" placeholder="Seu Nome">
+            <button onclick="saveUser()">Entrar no Sistema</button>
         </div>
 
         <div id="step2" class="step">
-            <div class="avatar-upload">
-                <img id="profilePic" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Perfil">
-            </div>
-            <h2 id="welcomeUser">Olá, Cliente!</h2>
-            <p class="profile-info">Membro Premium</p>
-            
-            <button onclick="nextStep(3)">Agendar Agora</button>
-            <button class="btn-outline" onclick="nextStep('editProfile')">Editar Perfil</button>
-            
-            <div class="footer-info">
-                📍 Rua da Elegância, 123<br>
-                🕒 07h às 18h
-            </div>
-        </div>
-
-        <div id="editProfile" class="step">
-            <h2>Editar Perfil</h2>
-            <label style="font-size: 12px; display: block; text-align: left;">Alterar Nome:</label>
-            <input type="text" id="newName" placeholder="Seu nome">
-            <label style="font-size: 12px; display: block; text-align: left;">URL da Foto:</label>
-            <input type="text" id="newPic" placeholder="Link da imagem">
-            <button onclick="saveProfile()">Salvar Alterações</button>
-            <button class="btn-outline" onclick="nextStep(2)">Voltar</button>
+            <h2>O que vamos fazer?</h2>
+            <p id="greeting"></p>
+            <select id="servico">
+                <option value="Corte de Cabelo (R$ 35,00)">Corte de Cabelo - R$ 35,00</option>
+                <option value="Barba Tradicional (R$ 25,00)">Barba - R$ 25,00</option>
+                <option value="Combo (R$ 55,00)">Corte + Barba - R$ 55,00</option>
+            </select>
+            <select id="profissional">
+                <option value="Anderson">Barbeiro Anderson</option>
+                <option value="Junior">Barbeiro Junior</option>
+            </select>
+            <button onclick="nextStep(3)">Escolher Horário</button>
+            <button class="btn-back" onclick="nextStep(1)">Sair</button>
         </div>
 
         <div id="step3" class="step">
-            <h2>O Barbeiro</h2>
-            <select id="profissional">
-                <option value="Anderson">Anderson (Master)</option>
-                <option value="Junior">Junior (Especialista)</option>
-            </select>
-            <button onclick="nextStep(4)">Próximo</button>
-            <button class="btn-outline" onclick="nextStep(2)">Voltar</button>
+            <h2>Escolha o Horário</h2>
+            <p>Toque em um horário livre:</p>
+            
+            <div class="time-grid" id="grid">
+                <div class="time-slot" onclick="selectTime(this)">08:00</div>
+                <div class="time-slot" onclick="selectTime(this)">09:00</div>
+                <div class="time-slot" onclick="selectTime(this)">10:00</div>
+                <div class="time-slot" onclick="selectTime(this)">13:00</div>
+                <div class="time-slot" onclick="selectTime(this)">14:00</div>
+                <div class="time-slot" onclick="selectTime(this)">15:00</div>
+                <div class="time-slot" onclick="selectTime(this)">16:00</div>
+                <div class="time-slot" onclick="selectTime(this)">17:00</div>
+                <div class="time-slot" onclick="selectTime(this)">18:00</div>
+            </div>
+
+            <button onclick="nextStep(4)">Confirmar Horário</button>
+            <button class="btn-back" onclick="nextStep(2)">Voltar</button>
         </div>
 
         <div id="step4" class="step">
-            <h2>O Serviço</h2>
-            <select id="servico">
-                <option value="Corte de Cabelo (R$ 45,00)">Cabelo Moderno - R$ 45,00</option>
-                <option value="Barba Tradicional (R$ 30,00)">Barba e Toalha Quente - R$ 30,00</option>
-                <option value="Combo Completo (R$ 65,00)">Experiência Completa - R$ 65,00</option>
-            </select>
-            <button onclick="nextStep(5)">Próximo</button>
-        </div>
-
-        <div id="step5" class="step">
-            <h2>Data e Hora</h2>
-            <input type="date" id="dia_semana">
-            <select id="horario">
-                <option value="09:00">09:00</option>
-                <option value="10:00">10:00</option>
-                <option value="14:00">14:00</option>
-                <option value="16:00">16:00</option>
-            </select>
-            <button onclick="nextStep(6)">Revisar</button>
-        </div>
-
-        <div id="step6" class="step">
-            <h2>Quase lá!</h2>
-            <textarea id="obs" rows="3" placeholder="Alguma preferência?"></textarea>
-            <button onclick="sendWhatsApp()">Confirmar no WhatsApp</button>
-            <button class="btn-outline" onclick="nextStep(2)">Cancelar</button>
+            <h2>Finalizar</h2>
+            <textarea id="obs" rows="3" placeholder="Alguma observação?"></textarea>
+            <button onclick="sendWhatsApp()">Confirmar via WhatsApp</button>
+            <button class="btn-back" onclick="nextStep(3)">Mudar Horário</button>
         </div>
 
     </div>
 
     <script>
-        function nextStep(stepId) {
-            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
-            if(typeof stepId === 'number'){
-                document.getElementById('step' + stepId).classList.add('active');
-            } else {
-                document.getElementById(stepId).classList.add('active');
-            }
+        let selectedTime = "";
+
+        function nextStep(n) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + n).classList.add('active');
         }
 
-        function login() {
-            const user = document.getElementById('user').value;
-            if(user) {
-                document.getElementById('welcomeUser').innerText = "Olá, " + user + "!";
-                nextStep(2);
-            } else {
-                alert("Por favor, digite seu usuário.");
-            }
+        // Função para carregar a foto da galeria
+        function loadPhoto(event) {
+            const output = document.getElementById('preview');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.style.display = 'inline-block';
         }
 
-        function saveProfile() {
-            const name = document.getElementById('newName').value;
-            const pic = document.getElementById('newPic').value;
-            
-            if(name) document.getElementById('welcomeUser').innerText = "Olá, " + name + "!";
-            if(pic) document.getElementById('profilePic').src = pic;
-            
+        function saveUser() {
+            const nome = document.getElementById('nome_user').value;
+            if(nome === "") return alert("Por favor, digite seu nome");
+            document.getElementById('greeting').innerText = "Olá, " + nome + "! Escolha seu serviço:";
             nextStep(2);
         }
 
+        // Função para selecionar o horário apenas clicando
+        function selectTime(element) {
+            // Remove seleção anterior
+            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
+            // Adiciona seleção ao atual
+            element.classList.add('selected');
+            selectedTime = element.innerText;
+        }
+
         function sendWhatsApp() {
+            if(!selectedTime) return alert("Por favor, clique em um horário!");
+
+            const nome = document.getElementById('nome_user').value;
             const profissional = document.getElementById('profissional').value;
             const servico = document.getElementById('servico').value;
-            const dia = document.getElementById('dia_semana').value;
-            const horario = document.getElementById('horario').value;
             const obs = document.getElementById('obs').value;
             const numero = "553399506119";
 
-            const mensagem = `*Agendamento Barbearia*%0A` +
-                             `*Barbeiro:* ${profissional}%0A` +
-                             `*Serviço:* ${servico}%0A` +
-                             `*Data:* ${dia}%0A` +
-                             `*Hora:* ${horario}%0A` +
-                             `*Obs:* ${obs}`;
+            const msg = `*NOVO AGENDAMENTO*%0A` +
+                        `*Cliente:* ${nome}%0A` +
+                        `*Barbeiro:* ${profissional}%0A` +
+                        `*Serviço:* ${servico}%0A` +
+                        `*Horário:* ${selectedTime}%0A` +
+                        `*Obs:* ${obs}`;
 
-            window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`, '_blank');
+            window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${msg}`, '_blank');
         }
     </script>
 </body>
