@@ -2,277 +2,190 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Anderson Barber | Premium Booking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mateus | Brutus Barbearia</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --pure-black: #000000;
-            --pure-white: #ffffff;
-            --gray-100: #f8f9fa;
-            --gray-300: #dee2e6;
-            --gray-800: #343a40;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary-color: #d4af37; /* Dourado/Ouro */
+            --bg-color: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --text-color: #ffffff;
+            --secondary-text: #b3b3b3;
         }
 
-        * { 
-            box-sizing: border-box; 
-            -webkit-tap-highlight-color: transparent; 
-            margin: 0; padding: 0;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--pure-white);
-            color: var(--pure-black);
-            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             display: flex;
             justify-content: center;
+            align-items: center;
             min-height: 100vh;
+            padding: 20px;
         }
 
         .container {
             width: 100%;
-            max-width: 420px;
-            padding: 40px 24px;
-            position: relative;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .profile-section {
+            margin-bottom: 30px;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        p.subtitle {
+            color: var(--secondary-text);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .links-container {
             display: flex;
             flex-direction: column;
+            gap: 15px;
         }
 
-        /* Tesoura Background Profissional */
-        .bg-icon {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 180px;
-            opacity: 0.04;
-            pointer-events: none;
-            z-index: -1;
-            user-select: none;
-        }
-
-        .step { display: none; width: 100%; }
-        .step.active { 
-            display: flex; 
-            flex-direction: column;
-            animation: slideUp 0.4s ease-out; 
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Tipografia */
-        h1 { font-size: 12px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 8px; color: var(--gray-800); }
-        h2 { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-bottom: 32px; }
-
-        /* Perfil e Foto */
-        .avatar-container {
-            margin-bottom: 32px;
-            align-self: center;
-        }
-        #preview {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 1px solid var(--pure-black);
-            padding: 4px;
-            margin-bottom: 12px;
-            display: none;
-        }
-        .upload-label {
-            font-size: 11px;
-            font-weight: 700;
+        .link-card {
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            padding: 18px;
+            border-radius: 12px;
             text-decoration: none;
-            border-bottom: 1px solid var(--pure-black);
-            padding-bottom: 2px;
-            cursor: pointer;
-            text-transform: uppercase;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        /* Formulários */
-        input, select, textarea {
-            width: 100%;
-            padding: 16px 0;
-            margin-bottom: 24px;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid var(--gray-300);
-            font-size: 16px;
-            border-radius: 0;
-            transition: var(--transition);
-        }
-        input:focus { border-bottom-color: var(--pure-black); outline: none; }
-
-        /* Grade de Horários Profissional */
-        .time-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 32px;
-        }
-        .time-slot {
-            padding: 14px 0;
-            border: 1px solid var(--gray-300);
-            text-align: center;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .time-slot:hover { border-color: var(--pure-black); }
-        .time-slot.selected {
-            background: var(--pure-black);
-            color: var(--pure-white);
-            border-color: var(--pure-black);
+        .link-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary-color);
+            background-color: #222;
         }
 
-        /* Botões */
-        button {
-            background: var(--pure-black);
-            color: var(--pure-white);
-            border: none;
-            padding: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 8px;
-        }
-        button:active { transform: scale(0.98); opacity: 0.9; }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--pure-black);
-            border: 1px solid var(--pure-black);
-            margin-top: 12px;
+        .link-card i {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: var(--primary-color);
+            width: 30px;
         }
 
-        .label-small { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--gray-800); margin-bottom: 4px; display: block; text-align: left; }
+        .link-text {
+            text-align: left;
+        }
+
+        .link-text span {
+            display: block;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .link-text small {
+            color: var(--secondary-text);
+            font-size: 0.85rem;
+        }
+
+        .social-icons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-icons a {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+        }
     </style>
 </head>
 <body>
 
-    <div class="bg-icon">✂️</div>
-
     <div class="container">
-        
-        <div id="step1" class="step active">
-            <h1>Premium Service</h1>
-            <h2>Bem-vindo</h2>
-            
-            <div class="avatar-container">
-                <img id="preview" src="#" alt="Profile">
-                <label class="upload-label">
-                    <input type="file" id="foto" accept="image/*" style="display:none" onchange="loadPhoto(event)">
-                    Carregar Foto
-                </label>
-            </div>
-
-            <span class="label-small">Nome Completo</span>
-            <input type="text" id="nome_user" placeholder="Ex: Rodrigo Oliveira">
-            <button onclick="saveUser()">Próximo</button>
+        <div class="profile-section">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/17785345201389623605_0" alt="Barbeiro Mateus" class="profile-img">
+            <h1>Mateus</h1>
+            <p class="subtitle">Especialista em Cortes Modernos e Barba</p>
         </div>
 
-        <div id="step2" class="step">
-            <h1>Serviços</h1>
-            <h2>O que faremos hoje?</h2>
-            
-            <span class="label-small">Selecione o procedimento</span>
-            <select id="servico">
-                <option value="Corte de Cabelo">Corte de Cabelo — R$ 35</option>
-                <option value="Barba Design">Barba Design — R$ 25</option>
-                <option value="Combo Completo">Combo Completo — R$ 55</option>
-            </select>
+        <div class="links-container">
+            <a href="#" class="link-card">
+                <i class="fa-regular fa-calendar-check"></i>
+                <div class="link-text">
+                    <span>Agende seu Horário</span>
+                    <small>Reserve via Tua Agenda</small>
+                </div>
+            </a>
 
-            <span class="label-small" style="margin-top: 10px;">Barbeiro Selecionado</span>
-            <p style="font-weight: 700; margin-bottom: 40px;">Anderson Master</p>
+            <a href="https://wa.me/5500000000000" class="link-card">
+                <i class="fa-brands fa-whatsapp"></i>
+                <div class="link-text">
+                    <span>WhatsApp</span>
+                    <small>Dúvidas e informações</small>
+                </div>
+            </a>
 
-            <button onclick="nextStep(3)">Escolher Horário</button>
-            <button class="btn-secondary" onclick="nextStep(1)">Voltar</button>
+            <a href="#" class="link-card">
+                <i class="fa-brands fa-instagram"></i>
+                <div class="link-text">
+                    <span>Meu Portfólio</span>
+                    <small>Siga no Instagram</small>
+                </div>
+            </a>
+
+            <a href="#" class="link-card">
+                <i class="fa-solid fa-location-dot"></i>
+                <div class="link-text">
+                    <span>Localização</span>
+                    <small>Brutus Barbearia - Como chegar</small>
+                </div>
+            </a>
         </div>
 
-        <div id="step3" class="step">
-            <h1>Agenda</h1>
-            <h2>Horários disponíveis</h2>
-            
-            <div class="time-grid">
-                <div class="time-slot" onclick="selectTime(this)">09:00</div>
-                <div class="time-slot" onclick="selectTime(this)">10:00</div>
-                <div class="time-slot" onclick="selectTime(this)">11:00</div>
-                <div class="time-slot" onclick="selectTime(this)">14:00</div>
-                <div class="time-slot" onclick="selectTime(this)">15:00</div>
-                <div class="time-slot" onclick="selectTime(this)">16:00</div>
-                <div class="time-slot" onclick="selectTime(this)">17:00</div>
-                <div class="time-slot" onclick="selectTime(this)">18:00</div>
-                <div class="time-slot" onclick="selectTime(this)">19:00</div>
-            </div>
-
-            <button onclick="nextStep(4)">Continuar</button>
-            <button class="btn-secondary" onclick="nextStep(2)">Voltar</button>
+        <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#"><i class="fa-solid fa-envelope"></i></a>
         </div>
 
-        <div id="step4" class="step">
-            <h1>Finalização</h1>
-            <h2>Algum detalhe?</h2>
-            
-            <textarea id="obs" rows="4" placeholder="Preferências, estilo de corte ou observações..."></textarea>
-            
-            <button onclick="sendWhatsApp()">Finalizar Agendamento</button>
-            <button class="btn-secondary" onclick="nextStep(3)">Revisar Horário</button>
+        <div class="footer">
+            <p>&copy; 2024 Brutus Barbearia - Mateus Barber</p>
         </div>
-
     </div>
 
-    <script>
-        let selectedTime = "";
-
-        function nextStep(n) {
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            document.getElementById('step' + n).classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function loadPhoto(event) {
-            const output = document.getElementById('preview');
-            output.src = URL.createObjectURL(event.target.files[0]);
-            output.style.display = 'block';
-            document.querySelector('.upload-label').innerText = 'Trocar Foto';
-        }
-
-        function saveUser() {
-            const nome = document.getElementById('nome_user').value;
-            if(!nome) return alert("Por favor, informe seu nome.");
-            nextStep(2);
-        }
-
-        function selectTime(element) {
-            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedTime = element.innerText;
-        }
-
-        function sendWhatsApp() {
-            if(!selectedTime) return alert("Selecione um horário para continuar.");
-
-            const nome = document.getElementById('nome_user').value;
-            const servico = document.getElementById('servico').value;
-            const obs = document.getElementById('obs').value;
-            const numero = "553399506119";
-
-            const msg = `*RESERVA PREMIUM - ANDERSON BARBER*%0A%0A` +
-                        `*CLIENTE:* ${nome.toUpperCase()}%0A` +
-                        `*SERVIÇO:* ${servico}%0A` +
-                        `*HORÁRIO:* ${selectedTime}%0A` +
-                        `*OBS:* ${obs || 'Nenhuma'}`;
-
-            window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${msg}`, '_blank');
-        }
-    </script>
 </body>
 </html>
